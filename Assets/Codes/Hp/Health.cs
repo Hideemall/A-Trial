@@ -44,6 +44,7 @@ public class Health : MonoBehaviour
                 //Deactivate all attached component classes
                 foreach (Behaviour component in components)
                     component.enabled = false;
+            
 
                 dead = true;
             }
@@ -51,7 +52,7 @@ public class Health : MonoBehaviour
     }
     public void gameover()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(1);
     }
     public void AddHealth(float _value)
     {

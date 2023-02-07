@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class Menu : MonoBehaviour
 {
+    [SerializeField] private int Scene;
 
     public void LoadLevel(int index)
     {
@@ -11,6 +12,7 @@ public class Menu : MonoBehaviour
 
     public void QuitGame()
     {
+        PlayerPrefs.DeleteAll ();
         Application.Quit();
         Debug.Log("quit");
     }
@@ -19,7 +21,7 @@ public class Menu : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-            SceneManager.LoadScene(2);
+            SceneManager.LoadScene(Scene);
         }
     }
 }
