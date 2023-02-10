@@ -12,6 +12,8 @@ public class Movement : MonoBehaviour
     public LayerMask enemyLayers;
     public float attackRate=2f;
     float nextAttackTime=0f;
+    private bool doublejump;
+    public bool itemjump=false;
 
     private void Awake()
     {   
@@ -30,9 +32,17 @@ public class Movement : MonoBehaviour
             transform.localScale = Vector3.one;
         else if (horizontalInput < -0.01f)
             transform.localScale = new Vector3(-1, 1, 1);
- 
-        if (Input.GetKey(KeyCode.Space) && grounded)
-            Jump();
+
+        itemjump = (PlayerPrefs.GetInt("DoubleJump") != 0);
+        if (Input.GetKeyDown(KeyCode.Space))
+            if(grounded){
+                Jump();
+                doublejump = true;
+                grounded = false;
+            }else if(doublejump && itemjump){
+                Jump();
+                doublejump = false;
+            }
 
         if(Time.time>=nextAttackTime)
         {
@@ -68,7 +78,7 @@ public class Movement : MonoBehaviour
     private void Jump()
     {
         body.velocity = new Vector2(body.velocity.x, 8);
-        grounded = false;
+        //grounded = false;
     }
  
     private void OnCollisionEnter2D(Collision2D collision)
@@ -80,6 +90,10 @@ public class Movement : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if(other.gameObject.CompareTag("Coin"))
+        {
+            Destroy(other.gameObject);
+        }
+        if(other.gameObject.CompareTag("PowerUp"))
         {
             Destroy(other.gameObject);
         }
