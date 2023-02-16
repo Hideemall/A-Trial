@@ -5,8 +5,8 @@ public class Score : MonoBehaviour
 {
    
     public static Score instance;
-    public Text text;
-    int points;
+    public Text pkttext;
+    public int points=0;
 
     void Start()
     {
@@ -19,7 +19,7 @@ public class Score : MonoBehaviour
     public void ChangeScore(int coinValue)
     {
         points+=coinValue;
-        text.text=points.ToString();
+        pkttext.text=points.ToString();
     }
  
 }

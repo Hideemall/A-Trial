@@ -19,8 +19,7 @@ public class RangedEnemy : MonoBehaviour
     [SerializeField] private LayerMask playerLayer;
     private float cooldownTimer = Mathf.Infinity;
 
-    [Header("Arrow Sound")]
-    [SerializeField] private AudioClip ArrowSound;
+    [SerializeField] private AudioClip RangeAttackSound;
 
     //References
     private Animator anim;
@@ -41,6 +40,7 @@ public class RangedEnemy : MonoBehaviour
         {
             if (cooldownTimer >= attackCooldown)
             {
+                SoundManager.instance.PlaySound(RangeAttackSound);
                 cooldownTimer = 0;
                 anim.SetTrigger("attack");
             }
@@ -52,7 +52,6 @@ public class RangedEnemy : MonoBehaviour
 
     private void RangedAttack()
     {
-        //SoundManager.instance.PlaySound(ArrowSound);
         cooldownTimer = 0;
         arrows[FindArrow()].transform.position = firepoint.position;
         arrows[FindArrow()].GetComponent<EnemyProjectile>().ActivateProjectile();

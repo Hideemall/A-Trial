@@ -3,6 +3,8 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     [SerializeField] private float speed;
+    [SerializeField] private AudioClip MeleeAttackSound;
+    [SerializeField] private AudioClip JumpSound;
     private Rigidbody2D body;
     private Animator anim;
     private bool grounded;
@@ -60,6 +62,7 @@ public class Movement : MonoBehaviour
 
     private void Attack()
     {
+        SoundManager.instance.PlaySound(MeleeAttackSound);
         anim.SetTrigger("attack");
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
         foreach(Collider2D enemy in hitEnemies)
@@ -77,6 +80,7 @@ public class Movement : MonoBehaviour
  
     private void Jump()
     {
+        SoundManager.instance.PlaySound(JumpSound);
         body.velocity = new Vector2(body.velocity.x, 8);
         //grounded = false;
     }

@@ -5,6 +5,7 @@ public class ProjectAttack : MonoBehaviour
     [SerializeField] private float attackCooldown;
     [SerializeField] private Transform firePoint;
     [SerializeField] private GameObject[] fireballs;
+    [SerializeField] private AudioClip RangeAttackSound;
 
     private Animator anim;
     private Movement playerMovement;
@@ -26,6 +27,7 @@ public class ProjectAttack : MonoBehaviour
 
     private void Attack()
     {
+        SoundManager.instance.PlaySound(RangeAttackSound);
         anim.SetTrigger("projectattack");
         cooldownTimer = 0;
 
