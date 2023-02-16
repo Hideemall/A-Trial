@@ -49,7 +49,7 @@ public class Health : MonoBehaviour
                     component.enabled = false;
 
                 SoundManager.instance.PlaySound(DieSound);
-                anim.SetBool("grounded", true);
+                anim.SetBool("ground", true);
                 anim.SetTrigger("die");
 
                 dead = true;

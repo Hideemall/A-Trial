@@ -5,8 +5,10 @@ public class Movement : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private AudioClip MeleeAttackSound;
     [SerializeField] private AudioClip JumpSound;
+    [SerializeField] private LayerMask groundLayer;
     private Rigidbody2D body;
     private Animator anim;
+    private BoxCollider2D boxCollider;
     private bool grounded;
     private bool jumpattack;
     public Transform attackPoint;
@@ -22,6 +24,7 @@ public class Movement : MonoBehaviour
         //Grabs references for rigidbody and animator from game object.
         body = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        boxCollider = GetComponent<BoxCollider2D>();
     }
  
     private void Update()
@@ -34,6 +37,9 @@ public class Movement : MonoBehaviour
             transform.localScale = Vector3.one;
         else if (horizontalInput < -0.01f)
             transform.localScale = new Vector3(-1, 1, 1);
+
+        anim.SetBool("run", horizontalInput != 0);
+        anim.SetBool("grounded", isGrounded());
 
         itemjump = (PlayerPrefs.GetInt("DoubleJump") != 0);
         if (Input.GetKeyDown(KeyCode.Space))
@@ -70,6 +76,13 @@ public class Movement : MonoBehaviour
             enemy.GetComponent<Health>().TakeDamage(1);
         }
     }
+
+    private bool isGrounded()
+    {
+        RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, Vector2.down, 0.1f, groundLayer);
+        return raycastHit.collider != null;
+    }
+
     void OnDrawGizmosSelected()
     {
         if(attackPoint==null)

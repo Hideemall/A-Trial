@@ -3144,7 +3144,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pkttext: {fileID: 0}
-  points: 0
+  highscoretext: {fileID: 0}
+  levelNumber: 0
 --- !u!4 &378586188
 Transform:
   m_ObjectHideFlags: 0
@@ -4356,7 +4357,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pkttext: {fileID: 1339581425}
-  points: 0
+  highscoretext: {fileID: 1208753107}
+  levelNumber: 1
 --- !u!114 &497264621
 MonoBehaviour:
   m_ObjectHideFlags: 0
